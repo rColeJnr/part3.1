@@ -25,14 +25,17 @@ String show(Gender gender) => gender.toString().replaceAll("Gender.", "");
 
 enum Relationship { Friend, OneDate, OnGoing, Committed, Marriage }
 
+// Maps each relationship with a corresponding string
 Map<Relationship, String> nice = {
   Relationship.Friend: "Friend",
   Relationship.OneDate: "One date",
   Relationship.OnGoing: "Ongoing relationship",
-  Relationship.Committed: "Commmitted",
+  Relationship.Committed: "Committed",
   Relationship.Marriage: "Marriage",
 };
 
+// Creates a spinner of relationships
+// matches each value with the corresponding string according to the Map "nice"
 List<DropdownMenuItem<Relationship>> _relationshipsList = [
   DropdownMenuItem(
       value: Relationship.Friend, child: Text(nice[Relationship.Friend])),
@@ -46,6 +49,12 @@ List<DropdownMenuItem<Relationship>> _relationshipsList = [
       value: Relationship.Marriage, child: Text(nice[Relationship.Marriage])),
 ];
 
+/*
+* holds states of all statefull widgets
+* 
+* @param _nameFieldController - controls
+* @param
+* */
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _nameFieldController;
   bool _ageSwitchValue;
@@ -60,10 +69,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    // assign controller and reset all fields to default
     _nameFieldController = TextEditingController();
     _reset();
   }
 
+  // dismiss the TextEditingController
   @override
   void dispose() {
     _nameFieldController.dispose();
@@ -179,9 +190,9 @@ class _MyHomePageState extends State<MyHomePage> {
       children: <Widget>[
         DropdownButton<Relationship>(
           items: _relationshipsList,
-          onChanged: _updateRelationsipDropdown,
+          onChanged: _updateRelationshipDropdown,
           value: _relationshipDropdownValue,
-          hint: Text("Select One"),
+          hint: Text("Select one"),
         ),
         if (_relationshipDropdownValue != null)
           FlatButton(
@@ -245,7 +256,7 @@ class _MyHomePageState extends State<MyHomePage> {
       padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
       margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
       decoration: BoxDecoration(
-        border: Border.all(width: 0.5),
+        border: Border.all(width: 0.9),
         borderRadius: BorderRadius.all(Radius.circular(90)),
       ),
       child: child,
@@ -276,7 +287,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _updateRelationsipDropdown(Relationship newValue) {
+  void _updateRelationshipDropdown(Relationship newValue) {
     setState(() {
       _relationshipDropdownValue = newValue;
     });
